@@ -30,7 +30,7 @@ import com.example.pam_act5.R
 fun HalamanForm(
     onSubmitButtonClicked: (MutableList<String>) -> Unit,
     onBackButtonCLicked: () -> Unit
-){
+) {
 
     var namaText by remember {
         mutableStateOf("")
@@ -58,7 +58,7 @@ fun HalamanForm(
                 value = namaText,
                 shape = MaterialTheme.shapes.large,
                 label = { Text(text = stringResource(id = R.string.nameUser)) },
-                onValueChange = {namaText = it}
+                onValueChange = { namaText = it }
             )
             Spacer(modifier = Modifier.padding(10.dp))
 
@@ -67,7 +67,7 @@ fun HalamanForm(
                 value = alamatText,
                 shape = MaterialTheme.shapes.large,
                 label = { Text(text = stringResource(id = R.string.addressUser)) },
-                onValueChange = {alamatText = it}
+                onValueChange = { alamatText = it }
             )
             Spacer(modifier = Modifier.padding(10.dp))
 
@@ -76,13 +76,24 @@ fun HalamanForm(
                 value = phoneText,
                 shape = MaterialTheme.shapes.large,
                 label = { Text(text = stringResource(id = R.string.phoneUser)) },
-                onValueChange = {phoneText = it}
+                onValueChange = { phoneText = it }
             )
 
 
             Spacer(modifier = Modifier.padding(10.dp))
         }
-
-
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Button(onClick = { onBackButtonCLicked }) {
+                Text(text = stringResource(id = R.string.back_button))
+            }
+            Button(onClick = { onSubmitButtonClicked(listData) }) {
+                Text(text = stringResource(id = R.string.submit_button))
+            }
+        }
     }
 }
+
+
