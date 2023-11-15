@@ -40,7 +40,7 @@ fun MenanteaAppbar(
     bisaNavigasiBack: Boolean,
     navigasiUp: () -> Unit,
     modifier: Modifier = Modifier
-){
+) {
     TopAppBar(
         title = { Text(stringResource(R.string.app_name)) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
@@ -48,13 +48,14 @@ fun MenanteaAppbar(
         ),
         modifier = modifier,
         navigationIcon = {
-            if (bisaNavigasiBack){
+            if (bisaNavigasiBack) {
                 IconButton(
                     onClick = {
                         navigasiUp
                     }
                 ) {
-                    Icon(imageVector = Icons.Filled.ArrowBack,
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
                         contentDescription = stringResource(R.string.back_button)
                     )
                 }
@@ -68,53 +69,71 @@ fun MenanteaAppbar(
 fun MenanteaApp(
     ViewModel: OrderViewModel = viewModel(),
     navController: NavHostController = rememberNavController()
-){
+) {
     Scaffold(
         topBar = {
             MenanteaAppbar(bisaNavigasiBack = false, navigasiUp = { /*TODO:*/
             }
             )
         }
-    ) {innerPadding ->
+    ) { innerPadding ->
         val uiState by ViewModel.stateUI.collectAsState()
+        val nameState by viewModel.nameST.collectAsState()
         NavHost(
             navController = navController,
             startDestination = PengelolaHalaman.Home.name,
             modifier = Modifier.padding(innerPadding)
-        ){
-            composable(route = PengelolaHalaman.Home.name){
-                HalamanHome (
+        ) {
+            composable(route = PengelolaHalaman.Home.name) {
+                HalamanHome(
                     onNextButtonClicked = {
                         navController.navigate(PengelolaHalaman.Rasa.name)
                     }
                 )
             }
+            composable(route = PengelolaHalaman.Form.name){
+                HalamanForm(
+                    onSubmitButtonClicked = {
+                        viewModel().setNama(it)
+                        navController.navigate(PengelolaHalaman.Rasa.name)},
+                    onBackButtonCLicked = {navController.popBackStack()
+                    }
+                )
+            }
 
-            composable(route = PengelolaHalaman.Rasa.name){
+            composable(route = PengelolaHalaman.Rasa.name) {
                 val context = LocalContext.current
                 HalamanSatu(
                     pilihanRasa = rasa.map { id -> context.resources.getString(id) },
-                    onSelectionChanged = { ViewModel.setRasa(it)},
-                    onConfirmButtonClicked = {ViewModel.setJumlah(it)},
-                    onNextButtonClicked = {navController.navigate(PengelolaHalaman.Summary.name)},
-                    onCancelButtonClicked = {cancelOrderAndNavigateToHome(
-                        ViewModel,
-                        navController
-                    )})
+                    onSelectionChanged = { ViewModel.setRasa(it) },
+                    onConfirmButtonClicked = { ViewModel.setJumlah(it) },
+                    onNextButtonClicked = { navController.navigate(PengelolaHalaman.Summary.name) },
+                    onCancelButtonClicked = {
+                        cancelOrderAndNavigateToHome(
+                            ViewModel,
+                            navController
+                        )
+                    })
             }
 
-            composable(route = PengelolaHalaman.Summary.name){
-                HalamanDua(orderUIState = uiState, onCancelButtonClicked = { cancelOrderAndNavigateToRasa(navController) })
+            composable(route = PengelolaHalaman.Summary.name) {
+                HalamanDua(
+                    orderUIState = uiState,
+                    formState = nameState,
+                    onCancelButtonClicked = { cancelOrderAndNavigateToRasa(navController) })
             }
         }
     }
 }
 
 private fun cancelOrderAndNavigateToRasa(navController: NavHostController) {
-    navController.popBackStack(PengelolaHalaman.Rasa.name,inclusive = false)
+    navController.popBackStack(PengelolaHalaman.Rasa.name, inclusive = false)
 }
 
-private fun cancelOrderAndNavigateToHome(viewModel: OrderViewModel, navController: NavHostController) {
+private fun cancelOrderAndNavigateToHome(
+    viewModel: OrderViewModel,
+    navController: NavHostController
+) {
     viewModel.resetOrder()
     navController.popBackStack(PengelolaHalaman.Home.name, inclusive = false)
 }
