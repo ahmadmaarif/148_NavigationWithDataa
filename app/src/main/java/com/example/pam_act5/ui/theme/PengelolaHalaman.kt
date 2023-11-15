@@ -30,6 +30,7 @@ import com.example.pam_act5.data.SumberData.rasa
 enum class PengelolaHalaman {
     Home,
     Rasa,
+    Form,
     Summary
 }
 
