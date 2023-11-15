@@ -27,6 +27,7 @@ import com.example.pam_act5.ui.component.FormatLabelHarga
 
 @Composable
 fun HalamanDua(
+    formState: FormState,
     orderUIState: OrderUIState,
     onCancelButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
@@ -43,6 +44,11 @@ fun HalamanDua(
             modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
         ) {
+            FormatDataPemesanan(
+                namaPemesanan = formState.nama,
+                alamatPemesan = formState.alamat,
+                phonePemesan = formState.phone
+            )
             Spacer(modifier = Modifier.padding(8.dp))
             items.forEach { items ->
                 Column {
@@ -54,6 +60,7 @@ fun HalamanDua(
                     dimensionResource(R.dimen.thickness_divider)
                 )
             }
+
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
             FormatLabelHarga(
                 subtotal = orderUIState.harga,
