@@ -17,8 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import com.example.pam_act5.R
 import com.example.pam_act5.data.OrderUIState
+import com.example.pam_act5.data.FormState
+import com.example.pam_act5.ui.component.FormatDataPemesanan
 import com.example.pam_act5.ui.component.FormatLabelHarga
 
 
@@ -27,7 +30,7 @@ fun HalamanDua(
     orderUIState: OrderUIState,
     onCancelButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
-){
+) {
     val items = listOf(
         Pair(stringResource(R.string.quantity), orderUIState.jumlah),
         Pair(stringResource(R.string.flavor), orderUIState.rasa)
@@ -40,13 +43,15 @@ fun HalamanDua(
             modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
         ) {
+            Spacer(modifier = Modifier.padding(8.dp))
             items.forEach { items ->
                 Column {
                     Text(items.first.uppercase())
                     Text(text = items.second.toString(), fontWeight = FontWeight.Bold)
                 }
-                Divider(thickness =
-                dimensionResource(R.dimen.thickness_divider)
+                Divider(
+                    thickness =
+                    dimensionResource(R.dimen.thickness_divider)
                 )
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
@@ -55,14 +60,14 @@ fun HalamanDua(
                 modifier = Modifier.align(Alignment.End)
             )
         }
-        Row (
+        Row(
             modifier = Modifier
                 .weight(1f, false)
                 .padding(dimensionResource(R.dimen.padding_medium))
-        ){
+        ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
-            ){
+            ) {
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {}
@@ -72,7 +77,7 @@ fun HalamanDua(
                 OutlinedButton(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = onCancelButtonClicked
-                ){
+                ) {
                     Text(stringResource(R.string.cancel))
                 }
             }
