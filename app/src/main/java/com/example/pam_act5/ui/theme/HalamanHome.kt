@@ -31,7 +31,7 @@ import com.example.pam_act5.R
 fun HalamanHome(
     onNextButtonClicked: () -> Unit
 ){
-    val img = painterResource(id = R.drawable.ic_android_black_24dp)
+    val img = painterResource(id = R.drawable.img)
     Column (modifier = Modifier,
         verticalArrangement = Arrangement.SpaceBetween){
         OutlinedCard (
