@@ -16,7 +16,7 @@
     <string name="subtotal_price">Subtotal : Rp %s</string>
     <string name="total_price">Total %s</string>
     <string name="nameUser">Nama</string>
-    <string name="addresUser">Alamat</string>
+    <string name="addressUser">Alamat</string>
     <string name="phoneUser">No Telepon</string>
     <string name="submit_button">Submit</string>
     <string name="namaOrder">Nama Pemesan :</string>
