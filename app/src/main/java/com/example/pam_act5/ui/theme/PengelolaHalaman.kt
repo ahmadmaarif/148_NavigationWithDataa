@@ -78,7 +78,7 @@ fun MenanteaApp(
         }
     ) { innerPadding ->
         val uiState by ViewModel.stateUI.collectAsState()
-        val nameState by viewModel.nameST.collectAsState()
+        val nameState by ViewModel.nameST.collectAsState()
         NavHost(
             navController = navController,
             startDestination = PengelolaHalaman.Home.name,
@@ -94,7 +94,7 @@ fun MenanteaApp(
             composable(route = PengelolaHalaman.Form.name){
                 HalamanForm(
                     onSubmitButtonClicked = {
-                        viewModel().setNama(it)
+                        ViewModel.setNama(it)
                         navController.navigate(PengelolaHalaman.Rasa.name)},
                     onBackButtonCLicked = {navController.popBackStack()
                     }
